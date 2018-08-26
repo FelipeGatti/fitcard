@@ -1,0 +1,28 @@
+﻿@model EstabelecimentosCategorias.Models.Categoria
+@{
+    /**/
+
+    ViewBag.Title = "CategoriaForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Id== 0)
+{
+    <h2>Nova Categoria</h2>
+}
+else
+{
+    <h2>Editar Categoria</h2>
+}
+@using (Html.BeginForm("Salvar", "Categorias"))
+{
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nome)
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Nome)
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-vermelho">Salvar</button>
+}

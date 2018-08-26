@@ -1,0 +1,65 @@
+﻿@model EstabelecimentosCategorias.ViewModel.CategoriasViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/datatables/css")
+}
+@section Scripts{
+    @Scripts.Render("~/datatables/js")
+
+}
+
+<h2>Categorias</h2>
+<a href="@Url.Action("NovaCategoria", "Categorias")" title="Novo" class="btn btn-vermelho"><i class="fa fa-file"></i> Nova Categoria</a>
+<p>
+</p>
+@if (Model.Categorias == null)
+{
+
+}
+else
+{
+    <table class="table table-bordered table-hover" id="datatable">
+        <thead>
+            <tr>
+                <th style="width:50px;text-align:center">Ações</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var categoria in Model.Categorias)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Editar", "Categorias", new { id = categoria.Id })" title="Editar"><i class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;&nbsp;
+                        <a href="#modalConfirmacao_@categoria.Id" data-toggle="modal"><i class="fa fa-minus-square-o fa-2x" style="color:red"></i></a>
+                        @using (Html.BeginForm("Deletar", "Categorias", new { id = categoria.Id }, FormMethod.Post))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            @Html.AntiForgeryToken()
+                            <div id="modalConfirmacao_@categoria.Id" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p>Tem certeza que deseja deletar esta categoria ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-branco" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-vermelho">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>@categoria.Nome</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+

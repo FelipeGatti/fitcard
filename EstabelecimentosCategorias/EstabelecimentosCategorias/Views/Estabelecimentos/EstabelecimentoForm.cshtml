@@ -1,0 +1,116 @@
+﻿@model EstabelecimentosCategorias.ViewModel.EstabelecimentoFormViewModel
+@{
+    /**/
+
+    ViewBag.Title = "EstabelecimentoForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Estabelecimento.Id == 0)
+{
+    <h2>Novo Estabelecimento</h2>
+}
+else
+{
+    <h2>Editar Estabelecimento</h2>
+}
+@using (Html.BeginForm("Salvar", "Estabelecimentos"))
+{
+    @Html.ValidationSummary()
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.RazaoSocial)
+                @Html.TextBoxFor(m => m.Estabelecimento.RazaoSocial, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.RazaoSocial)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.CNPJ)
+                @Html.TextBoxFor(m => m.Estabelecimento.CNPJ, new { @class = "form-control", id = "CNPJ" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.CNPJ)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.CategoriaId)
+                @Html.DropDownListFor(m => m.Estabelecimento.Categoria.Nome, new SelectList(Model.Categorias, "Nome", "Nome"), "Sem categoria", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Categoria.Nome)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Telefone)
+                @Html.TextBoxFor(m => m.Estabelecimento.Telefone, new { @class = "form-control", id = "telefone" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Telefone)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.NomeFantasia)
+                @Html.TextBoxFor(m => m.Estabelecimento.NomeFantasia, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.NomeFantasia)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Email)
+                @Html.TextBoxFor(m => m.Estabelecimento.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Email)
+            </div>
+
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Endereco)
+                @Html.TextBoxFor(m => m.Estabelecimento.Endereco, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Endereco)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Cidade)
+                @Html.TextBoxFor(m => m.Estabelecimento.Cidade, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Cidade)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Estado)
+                @Html.TextBoxFor(m => m.Estabelecimento.Estado, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Estado)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.DataCadastro)
+                @Html.TextBoxFor(m => m.Estabelecimento.DataCadastro, "{0:dd/MM/yyyy} ", new { @class = "form-control", id = "data" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.DataCadastro)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Agencia)
+                @Html.TextBoxFor(m => m.Estabelecimento.Agencia, new { @class = "form-control", id = "agencia" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Agencia)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Estabelecimento.Conta)
+                @Html.TextBoxFor(m => m.Estabelecimento.Conta, new { @class = "form-control", id = "conta" })
+                @Html.ValidationMessageFor(m => m.Estabelecimento.Conta)
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="checkbox" style="margin:0 0 15px 0">
+                <label>
+                    @Html.CheckBoxFor(m => m.Estabelecimento.Status) Está ativo?
+                </label>
+            </div>
+            <button type="submit" class="btn btn-sm btn-vermelho">Salvar</button>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.Estabelecimento.Id)
+    @Html.AntiForgeryToken()
+
+    <p class="row"></p>
+    <span class="row"> </span>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#telefone").inputmask("mask", { "mask": "(99) 99999-9999" });
+            $("#CNPJ").inputmask("mask", { "mask": "99.999.999/9999-99" });
+            $("#agencia").inputmask("mask", { "mask": "###-#" });
+            $("#conta").inputmask("mask", { "mask": "##.###-#" });
+            $("#data").inputmask("mask", { "mask": "99/99/9999" });
+        });
+    </script>
+}

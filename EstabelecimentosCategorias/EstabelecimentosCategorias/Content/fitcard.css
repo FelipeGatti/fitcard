@@ -1,0 +1,57 @@
+﻿.btn-branco {
+    background-color: #fff !important;
+    color: #ac192f;
+}
+
+    .btn-branco:hover {
+        color: dimgray;
+    }
+.btn-vermelho {
+    background-color: #ac192f !important;
+    color: #fff;
+}
+
+    .btn-vermelho:hover {
+        color: #e6d8da;
+    }
+
+.jumbotron {
+    background-color: #ac192f;
+    color: #fff;
+}
+    .jumbotron .btn-branco {
+        width: 100px;
+    }
+
+div h3 {
+    color: #fff;
+}
+
+.fit {
+    color: #e6d8da;
+}
+
+.navbar-nav li {
+    font-size: large;
+}
+
+.navbar-nav a:hover {
+    color: #ac192f !important;
+}
+body {
+    background-color:#eaeaea;
+}
+th {
+    background-color: #ac192f;
+    color: #e6d8da;
+}
+
+h2 {
+    color: #db3d4d;
+}
+table a {
+    color: dimgray;
+}
+    table a:hover {
+        color: gray
+    }

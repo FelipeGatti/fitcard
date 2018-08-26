@@ -1,0 +1,71 @@
+﻿@model EstabelecimentosCategorias.ViewModel.EstabelecimentosViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/datatables/css")
+}
+@section Scripts{
+    @Scripts.Render("~/datatables/js")
+}
+
+<h2>Estabelecimentos</h2>
+<a href="@Url.Action("NovoEstabelecimento", "Estabelecimentos")" title="Novo" class="btn btn-vermelho"><i class="fa fa-file"></i> Novo Estabelecimento</a>
+<p>
+</p>
+@if (Model.Estabelecimentos == null)
+{
+
+}
+else
+{
+    <table class="table table-bordered table-hover" id="datatable">
+        <thead>
+            <tr>
+                <th style="width:50px;text-align:center">Ações</th>
+                <th >Razão Social</th>
+                <th >Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var estabelecimento in Model.Estabelecimentos)
+            {
+                <tr>
+                    <td align="center">
+                        <a href="@Url.Action("Editar", "Estabelecimentos", new { id = estabelecimento.Id })" title="Editar"><i class="fa fa-pencil-square-o fa-2x"></i></a>&nbsp;&nbsp;
+                        <a href="#modalConfirmacao_@estabelecimento.Id" data-toggle="modal" title="Deletar"><i class="fa fa-minus-square-o fa-2x" style="color:red"></i></a>
+                        @using (Html.BeginForm("Deletar", "Estabelecimentos", new { id = estabelecimento.Id }, FormMethod.Post))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            @Html.AntiForgeryToken()
+                            <div id="modalConfirmacao_@estabelecimento.Id" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p>Tem certeza que deseja deletar esta categoria ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-branco" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-vermelho">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>@estabelecimento.RazaoSocial</td>
+                    @if (estabelecimento.Categoria == null)
+                    {
+                        <td>Este estabelecimento não possui categoria</td>
+                    }
+                    else
+                    {
+                        <td>@estabelecimento.Categoria.Nome</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

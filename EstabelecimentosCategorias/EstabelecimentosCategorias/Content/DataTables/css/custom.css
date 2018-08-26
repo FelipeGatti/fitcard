@@ -1,0 +1,7 @@
+﻿table.dataTable thead td,
+table.dataTable tfoot td,
+table.dataTable.no-footer,
+table.dataTable thead th,
+table.dataTable thead td {
+    border-bottom: none;
+}
